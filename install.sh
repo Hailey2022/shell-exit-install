@@ -24,7 +24,7 @@ echo "STEP 2: Compiling geph4-exit"
 cargo install --locked geph4-exit
 
 echo "STEP 3: Creating config file"
-iface = $(route | grep '^default' | grep -o '[^ ]*$')
+iface=$(route | grep '^default' | grep -o '[^ ]*$')
 dd of=~/geph4-exit.toml << EOF
 sosistab_listen = "[::]:$port"
 secret_key = "$HOME/geph4-exit.key"
