@@ -40,8 +40,8 @@ WantedBy=multi-user.target
 EOF
 
 sudo chmod 644 /etc/systemd/system/geph4-exit.service
-sudo systemctl enable geph4-exit
 sudo systemctl daemon-reexec
+sudo systemctl enable geph4-exit
 sudo systemctl restart geph4-exit
 
 sleep 2
