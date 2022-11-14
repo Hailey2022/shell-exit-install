@@ -12,18 +12,13 @@ read port
 
 set -e
 
-echo "STEP 0: Installing prereqs"
-apt-get install build-essential
+if ! [ -n "$(command -v geph4-exit)" ]; then
+    apt-get install build-essential
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source $HOME/.cargo/env
+    cargo install --locked geph4-exit
+fi
 
-
-echo "STEP 1: Installing Rust"
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source $HOME/.cargo/env
-
-echo "STEP 2: Compiling geph4-exit"
-cargo install --locked geph4-exit
-
-echo "STEP 3: Creating config file"
 iface=$(route | grep '^default' | grep -o '[^ ]*$')
 dd of=~/geph4-exit.toml << EOF
 sosistab_listen = "[::]:$port"
@@ -31,7 +26,6 @@ secret_key = "$HOME/geph4-exit.key"
 nat_external_iface = "$iface"
 EOF
 
-echo "STEP 4: Creating systemd unit"
 sudo dd of=/etc/systemd/system/geph4-exit.service << EOF 
 [Unit]
 Description=Geph4 exit service.
