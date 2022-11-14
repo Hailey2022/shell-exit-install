@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo "autosetup.sh must be run as root!"
+    echo "install.sh must be run as root!"
     exit
 fi
 
@@ -13,10 +13,12 @@ read port
 set -e
 
 if ! [ -n "$(command -v geph4-exit)" ]; then
-    apt-get install build-essential
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source $HOME/.cargo/env
-    cargo install --locked geph4-exit
+#     apt-get install build-essential
+#     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#     source $HOME/.cargo/env
+#     cargo install --locked geph4-exit
+    curl https://github.com/Hailey2022/mirror-geph4-exit/releases/download/20221114/geph4-exit -o /usr/bin/geph4-exit
+    chmod +x geph4-exit
 fi
 
 iface=$(route | grep '^default' | grep -o '[^ ]*$')
