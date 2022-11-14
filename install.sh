@@ -44,6 +44,5 @@ sudo systemctl enable geph4-exit
 sudo systemctl daemon-reexec
 sudo systemctl restart geph4-exit
 
-echo "STEP 5: Waiting for public key..."
 sleep 2
 sudo journalctl | grep geph | grep listening | head
