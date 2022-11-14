@@ -44,7 +44,7 @@ EOF
 sudo chmod 644 /etc/systemd/system/geph4-exit.service
 sudo systemctl daemon-reexec
 sudo systemctl enable geph4-exit
-sudo systemctl restart geph4-exit
+# sudo systemctl restart geph4-exit
 
 sleep 2
-sudo journalctl | grep geph | grep listening | head
+# sudo journalctl | grep geph | grep listening | head
