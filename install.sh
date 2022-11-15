@@ -7,9 +7,9 @@ fi
 
 echo "Which port do you want to use?"
 read port
-
 [ -z $port ] && port=8814
 
+apt remove ufw -y
 set -e
 
 if ! [ -n "$(command -v geph4-exit)" ]; then
@@ -22,8 +22,8 @@ if ! [ -n "$(command -v geph4-exit)" ]; then
 fi
 
 iface=$(route | grep '^default' | grep -o '[^ ]*$')
-# should add nat_external_iface = "$iface"
 dd of=~/geph4-exit.toml << EOF
+nat_external_iface = "$iface"
 sosistab_listen = "[::]:$port"
 secret_key = "$HOME/geph4-exit.key"
 EOF
