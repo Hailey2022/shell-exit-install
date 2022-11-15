@@ -22,10 +22,10 @@ if ! [ -n "$(command -v geph4-exit)" ]; then
 fi
 
 iface=$(route | grep '^default' | grep -o '[^ ]*$')
+# should add nat_external_iface = "$iface"
 dd of=~/geph4-exit.toml << EOF
 sosistab_listen = "[::]:$port"
 secret_key = "$HOME/geph4-exit.key"
-nat_external_iface = "$iface"
 EOF
 
 sudo dd of=/etc/systemd/system/geph4-exit.service << EOF 
@@ -44,7 +44,7 @@ EOF
 sudo chmod 644 /etc/systemd/system/geph4-exit.service
 sudo systemctl daemon-reexec
 sudo systemctl enable geph4-exit
-# sudo systemctl restart geph4-exit
+sudo systemctl restart geph4-exit
 
 sleep 2
-# sudo journalctl | grep geph | grep listening | head
+sudo journalctl | grep geph | grep listening | head
