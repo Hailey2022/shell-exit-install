@@ -21,6 +21,7 @@ if ! [ -n "$(command -v geph4-exit)" ]; then
     install -m 755 /tmp/geph4-exit /usr/bin/geph4-exit
 fi
 
+# apt install net-tools
 iface=$(route | grep '^default' | grep -o '[^ ]*$')
 dd of=~/geph4-exit.toml << EOF
 nat_external_iface = "$iface"
